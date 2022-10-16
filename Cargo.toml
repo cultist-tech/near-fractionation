@@ -12,7 +12,7 @@ serde = "1"
 serde_json = "1.0"
 rand="0.5.0"
 near-sdk = { version = "4.1.0-pre.3", features = ["abi"] }
-mfight_sdk = { path = "../-sdk", version = "=0.1.0" }
+mfight_sdk = { path = "../-sdk", version = "=0.1.4" }
 
 [profile.release]
 codegen-units=1
