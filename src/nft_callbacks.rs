@@ -1,19 +1,16 @@
 use near_sdk::{env, near_bindgen, AccountId, PromiseOrValue};
-use near_sdk::serde::{Deserialize, Serialize};
 use near_sdk::serde_json::from_str;
 use crate::*;
 use mfight_sdk::nft::base::NonFungibleTokenReceiver;
 use mfight_sdk::nft_fractionation::{TokenId, FractionationNftOnTransferArgs};
 
-
 #[near_bindgen]
-impl NonFungibleTokenReceiver for Contract {
-    /// where we add the ido because we know nft owner can only call nft_approve
+impl NonFungibleTokenReceiver for Contract {    
 
     fn nft_on_transfer(
       &mut self,
       sender_id: AccountId,
-      previous_owner_id: AccountId,
+      _previous_owner_id: AccountId,
       token_id: TokenId,
       msg: String,
     ) -> PromiseOrValue<bool> {
@@ -31,7 +28,7 @@ impl NonFungibleTokenReceiver for Contract {
           "owner_id should be signer_id"
       );
 
-      let args: FractionationNftOnTransferArgs = from_str(&msg).expect("Not valid IdoArgs");
+      let args: FractionationNftOnTransferArgs = from_str(&msg).expect("Not valid FractionationArgs");
 
       self.nft_fractionation.internal_on_nft_transfer(&args, &nft_contract_id, &token_id, &sender_id);
 

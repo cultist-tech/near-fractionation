@@ -382,17 +382,6 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "fed34cd105917e91daa4da6b3728c47b068749d6a62c59811f06ed2ac71d9da7"
 
 [[package]]
-name = "game"
-version = "0.1.0"
-dependencies = [
- "mfight_sdk",
- "near-sdk",
- "rand 0.5.6",
- "serde",
- "serde_json",
-]
-
-[[package]]
 name = "generic-array"
 version = "0.14.4"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -698,6 +687,17 @@ dependencies = [
  "sha2 0.9.3",
  "sha3",
  "zeropool-bn",
+]
+
+[[package]]
+name = "nft_fractionation"
+version = "0.1.0"
+dependencies = [
+ "mfight_sdk",
+ "near-sdk",
+ "rand 0.5.6",
+ "serde",
+ "serde_json",
 ]
 
 [[package]]
