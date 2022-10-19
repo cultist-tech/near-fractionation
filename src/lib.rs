@@ -27,8 +27,7 @@ pub enum StorageKey {
   BlacklistAccounts,  
   FractionationsOwners,
   Fractionation,  
-  Fractionations,  
-  //FractionationsCompleted,  
+  Fractionations,    
   FractionationTokensPerOwner,  
 }
 
@@ -48,8 +47,7 @@ impl Contract {
       nft_fractionation: NftFractionationFeature::new(        
         StorageKey::FractionationsOwners,
         StorageKey::Fractionation,        
-        StorageKey::Fractionations,
-        //StorageKey::FractionationsCompleted,        
+        StorageKey::Fractionations,             
         StorageKey::FractionationTokensPerOwner,        
       )
     };
@@ -68,8 +66,7 @@ impl Contract {
     pub struct OldNftFractionation {      
       pub fractionations_owners: LookupMap<ContractFractionationId, AccountId>,
       pub fractionation_by_id: TreeMap<ContractFractionationId, UnorderedSet<TokenId>>,      
-      pub fractionations_by_contract:TreeMap<ContractId, UnorderedSet<FractionationId>>,      
-      //pub fractionation_completed_by_id: LookupMap<ContractFractionationId, u64>,
+      pub fractionations_by_contract:TreeMap<ContractId, UnorderedSet<FractionationId>>, 
       pub tokens_per_owner: LookupMap<AccountId, TreeMap<ContractId, UnorderedSet<TokenId>>>,
     }
 
@@ -85,8 +82,7 @@ impl Contract {
     let nft_fractionation = NftFractionationFeature {      
       fractionations_owners: old.nft_fractionation.fractionations_owners,
       fractionation_by_id: old.nft_fractionation.fractionation_by_id,      
-      fractionations_by_contract: old.nft_fractionation.fractionations_by_contract,
-      //fractionation_completed_by_id: old.nft_fractionation.fractionation_completed_by_id,
+      fractionations_by_contract: old.nft_fractionation.fractionations_by_contract,      
       tokens_per_owner: old.nft_fractionation.tokens_per_owner,      
     };
 
