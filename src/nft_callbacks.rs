@@ -10,7 +10,7 @@ impl NonFungibleTokenReceiver for Contract {
     fn nft_on_transfer(
       &mut self,
       sender_id: AccountId,
-      _previous_owner_id: AccountId,
+      previous_owner_id: AccountId,
       token_id: TokenId,
       msg: String,
     ) -> PromiseOrValue<bool> {
