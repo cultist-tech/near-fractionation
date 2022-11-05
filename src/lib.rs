@@ -24,11 +24,11 @@ pub struct Contract {
 /// Helper structure to for keys of the persistent collections.
 #[derive(BorshStorageKey, BorshSerialize)]
 pub enum StorageKey {
-  BlacklistAccounts,  
+  BlacklistAccounts,
   FractionationsOwners,
-  Fractionation,  
-  Fractionations,    
-  FractionationTokensPerOwner,  
+  Fractionation,
+  Fractionations,
+  FractionationTokensPerOwner,
 }
 
 #[near_bindgen]
@@ -44,11 +44,11 @@ impl Contract {
       pause: PauseFeature::new(),
       owner: OwnerFeature::new(owner_id.clone()),
       blacklist: BlacklistFeature::new(StorageKey::BlacklistAccounts),
-      nft_fractionation: NftFractionationFeature::new(        
+      nft_fractionation: NftFractionationFeature::new(
         StorageKey::FractionationsOwners,
-        StorageKey::Fractionation,        
-        StorageKey::Fractionations,             
-        StorageKey::FractionationTokensPerOwner,        
+        StorageKey::Fractionation,
+        StorageKey::Fractionations,
+        StorageKey::FractionationTokensPerOwner,
       )
     };
 
@@ -63,10 +63,10 @@ impl Contract {
   #[private]
   pub fn migrate() -> Self {
     #[derive(BorshDeserialize, BorshSerialize)]
-    pub struct OldNftFractionation {      
+    pub struct OldNftFractionation {
       pub fractionations_owners: LookupMap<ContractFractionationId, AccountId>,
-      pub fractionation_by_id: TreeMap<ContractFractionationId, UnorderedSet<TokenId>>,      
-      pub fractionations_by_contract:TreeMap<ContractId, UnorderedSet<FractionationId>>, 
+      pub fractionation_by_id: TreeMap<ContractFractionationId, UnorderedSet<TokenId>>,
+      pub fractionations_by_contract:TreeMap<ContractId, UnorderedSet<FractionationId>>,
       pub tokens_per_owner: LookupMap<AccountId, TreeMap<ContractId, UnorderedSet<TokenId>>>,
     }
 
@@ -79,11 +79,11 @@ impl Contract {
     }
 
     let old: Old = env::state_read().expect("Error");
-    let nft_fractionation = NftFractionationFeature {      
+    let nft_fractionation = NftFractionationFeature {
       fractionations_owners: old.nft_fractionation.fractionations_owners,
-      fractionation_by_id: old.nft_fractionation.fractionation_by_id,      
-      fractionations_by_contract: old.nft_fractionation.fractionations_by_contract,      
-      tokens_per_owner: old.nft_fractionation.tokens_per_owner,      
+      fractionation_by_id: old.nft_fractionation.fractionation_by_id,
+      fractionations_by_contract: old.nft_fractionation.fractionations_by_contract,
+      tokens_per_owner: old.nft_fractionation.tokens_per_owner,
     };
 
     Self {
@@ -99,4 +99,5 @@ mfight_sdk::impl_pause_feature!(Contract, pause, assert_owner);
 mfight_sdk::impl_owner_feature!(Contract, owner);
 mfight_sdk::impl_blacklist_feature!(Contract, blacklist, assert_owner);
 
-mfight_sdk::impl_non_fungible_token_fractionation!(Contract, nft_fractionation, assert_owner);
+mfight_sdk::impl_fractionation_core!(Contract, nft_fractionation, assert_owner);
+mfight_sdk::impl_fractionation_enumeration!(Contract, nft_fractionation);
