@@ -1,3 +1,6 @@
 #!/bin/bash
-source neardev/dev-account.env
-near view $CONTRACT_NAME nft_fractionations_supply "{}"
+source neardev/.env
+
+CONTRACT_ID="$NFT_CONTRACT"
+
+near view $CONTRACT_NAME nft_fractionations_supply "{ \"contract_id\": \"$CONTRACT_ID\" }"

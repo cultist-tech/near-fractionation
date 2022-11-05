@@ -21,7 +21,7 @@ echo ---------------------------------------------------------
 echo
 
 # comment out the line below to deploy the other example contract
-near dev-deploy ../res/game.wasm
+near dev-deploy ../res/nft_fractionation.wasm
 #near deploy --accountId mfight.testnet --wasmFile ../res/game.wasm
 
 # uncomment the line below to deploy the other example contract
